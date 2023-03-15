@@ -144,7 +144,7 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                   },
                   style: ElevatedButton.styleFrom(
                       alignment: Alignment.center,
-                      fixedSize: Size(350, 65),
+                      fixedSize: Size(350, 50),
                       backgroundColor: (HexColor('#B1B2FF'))),
                   child: const Text(
                     "Tawar",
