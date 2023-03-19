@@ -65,10 +65,14 @@ class AuthController extends StateNotifier<Users> {
 
         }
 
+
+
         final users = Users.fromJson(checkUsers.data()!);
-        if (users?.role == 'user'){
+        print(users.role);
+        print(checkUsers.data()!);
+        if (users.role == 'user'){
           Navigator.pushReplacementNamed(context, '/userhome');
-        }else if (users?.role == 'admin'){
+        }else if (users.role == 'admin'){
           Navigator.pushReplacementNamed(context, '/adminhome');
         }
         ;

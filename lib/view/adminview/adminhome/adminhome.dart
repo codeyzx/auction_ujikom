@@ -11,7 +11,7 @@ class _AdminHomeViewState extends State<AdminHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Admin Home"),
+      body: Center(child: Text("Ini Admin Home")),
     );
   }
 }
