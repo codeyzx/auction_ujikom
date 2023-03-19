@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "150980342950",
+    "project_id": "smkn4-auction-app",
+    "storage_bucket": "smkn4-auction-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150980342950:android:b841d315409ee61f243067",
+        "android_client_info": {
+          "package_name": "com.smkn4bandung.auction.auction_ujikom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150980342950-nm47svjdmjthvf061n8qh8l25bn2bp16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf7ekpsi98teltdf7B5Npclvkq6Fo2FPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150980342950-nm47svjdmjthvf061n8qh8l25bn2bp16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

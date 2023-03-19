@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import '../screenindex/screenindex.dart';
+import '../../screenindex/screenindex.dart';
 
 
-class UserNavBar extends StatefulWidget {
-  const UserNavBar({Key? key}) : super(key: key);
+class AdminNavBar extends StatefulWidget {
+  const AdminNavBar({Key? key}) : super(key: key);
 
   @override
-  State<UserNavBar> createState() => _UserNavBarState();
+  State<AdminNavBar> createState() => _AdminNavBarState();
 }
 
-class _UserNavBarState extends State<UserNavBar> {
+class _AdminNavBarState extends State<AdminNavBar> {
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

@@ -1,13 +1,21 @@
+import 'package:auction_ujikom/view/authentication/auth.dart';
+import 'package:auction_ujikom/view/authentication/login.dart';
+import 'package:auction_ujikom/view/authentication/register.dart';
 import 'package:auction_ujikom/view/splash/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'component/admin/adminnavbar/navbar.dart';
 import 'component/navbar/navbar.dart';
 
-void main() {
-  runApp(ProviderScope(child: const MyApp()));
-  //runApp(const MyApp());
+
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,13 +32,24 @@ class MyApp extends StatelessWidget {
 
           return MaterialApp(
             title: 'Auction',
-            initialRoute: '/home',
+            initialRoute: '/',
             routes: {
 
               '/': (context)=> Splash(),
 
               // Navigating to home if user logged in
-              '/home': (context) => const NavBar(),
+              '/userhome': (context) => const UserNavBar(),
+
+              // Navigating to admin home if home logged in
+              '/adminhome': (context) => const AdminNavBar(),
+
+
+              '/auth':(context) => const AuthViews(),
+
+              //Navigating to Login Page
+              '/login': (context) => const LoginView(),
+              //Navigating to Register Page
+              '/register':(context) => const RegisterView(),
 
               // Navigating to auth if user not logged in
               // '/auth': (context) => const AuthView()

@@ -20,7 +20,12 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
   ];
 
   @override
+
+
   Widget build(BuildContext context) {
+    var hargaAwal = 15000000;
+    var hargaTerakhir = 20000000;
+
     return Scaffold(
       appBar: AppBar(title: Text('Ambil dari Judul document firebase')),
       body: Stack(
@@ -64,7 +69,7 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
-                                  'IDR 37.000.000')),
+                                  hargaAwal.toString())),
                         ),
                         Container(
                             color: Colors.yellow.withOpacity(0.75),
@@ -74,7 +79,7 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                                 child: Text(
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w600),
-                              'Harga Akhir',
+                              hargaTerakhir.toString(),
                               softWrap: true,
                             )))
                       ],
