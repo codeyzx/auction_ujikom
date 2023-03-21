@@ -31,6 +31,8 @@ class _HomepageState extends ConsumerState<HomepageView> {
               child: Text('Auction is Live!', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
             ),
           ),
+
+          SizedBox(height: 20,),
           
           PostCard(),
           SizedBox( height: 20),

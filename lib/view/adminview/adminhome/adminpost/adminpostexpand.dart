@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:like_button/like_button.dart';
 
-class PostExpandView extends ConsumerStatefulWidget {
-  const PostExpandView({Key? key}) : super(key: key);
+import 'component/tutuppenawaran.dart';
+
+class AdminPostExpandView extends ConsumerStatefulWidget {
+  const AdminPostExpandView({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<PostExpandView> createState() => _PostExpandViewState();
+  ConsumerState<AdminPostExpandView> createState() => _AdminPostExpandViewState();
 }
 
-class _PostExpandViewState extends ConsumerState<PostExpandView> {
+class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
   List<String> imagepost = [
     //ambil dari firebase
     'https://www.macworld.com/wp-content/uploads/2023/01/macbook-air-m1-hero01-100866889-orig.jpg?quality=50&strip=all&w=1024',
@@ -20,11 +22,11 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
   ];
 
   @override
+
+
   Widget build(BuildContext context) {
     var hargaAwal = 15000000;
     var hargaTerakhir = 20000000;
-
-    bool isOpen = false;
 
     return Scaffold(
       appBar: AppBar(title: Text('Ambil dari Judul document firebase')),
@@ -45,13 +47,13 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                           autoPlay: true,
                         ),
                         itemBuilder: (BuildContext context, int itemIndex,
-                                int pageViewIndex) =>
+                            int pageViewIndex) =>
                             Container(
-                          child: Image.network(
-                            imagepost[itemIndex],
-                            fit: BoxFit.contain,
-                          ),
-                        ),
+                              child: Image.network(
+                                imagepost[itemIndex],
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                       )),
                   Positioned(
                     bottom: 0,
@@ -77,11 +79,11 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                             height: 60,
                             child: Center(
                                 child: Text(
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
-                              hargaTerakhir.toString(),
-                              softWrap: true,
-                            )))
+                                  style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.w600),
+                                  hargaTerakhir.toString(),
+                                  softWrap: true,
+                                )))
                       ],
                     ),
                   )
@@ -125,91 +127,38 @@ class _PostExpandViewState extends ConsumerState<PostExpandView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Deskripsi detail barang'),
-                          Text('Deskripsi',
-                              style: TextStyle(color: Colors.black54))
+                          Text('Deskripsi', style: TextStyle(color: Colors.black54))
                         ],
                       )
                     ]),
               ),
+
             ],
           ),
-          isOpen
-              ? Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    // color: Colors.red,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              // color: Colors.red,
 
-                    height: 100,
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(20),
-                                      topLeft: Radius.circular(20))),
-                              context: context,
-                              builder: (context) {
-                                return ModalTawar();
-                              });
-                        },
-                        style: ElevatedButton.styleFrom(
-                            alignment: Alignment.center,
-                            fixedSize: Size(350, 50),
-                            backgroundColor: (HexColor('#B1B2FF'))),
-                        child: const Text(
-                          "Tawar",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        )),
-                  ),
-                )
-              : Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    // color: Colors.red,
-
-                    height: 100,
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Pelelangan Ditutup'),
-                                  content: Text(
-                                      'Pelelangan Barang ini telah ditutup oleh Admin atau Petugas'),
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('Tutup'),
-                                    ),
-                                    // ElevatedButton(
-                                    //   onPressed: () {
-                                    //     Navigator.of(context).pop();
-                                    //   },
-                                    //   child: Text('Cancel'),
-                                    //   style: ElevatedButton.styleFrom(
-                                    //       backgroundColor: (HexColor('#B1B2FF'))),
-                                    // ),
-                                  ],
-                                );
-                              });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          fixedSize: Size(350, 50),
-                          backgroundColor: (HexColor('#B1B2FF')),
-                        ),
-                        child: const Text(
-                          "Closed",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        )),
-                  ),
-                ),
+              height: 100,
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    showModalBottomSheet(isScrollControlled: true,shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(
+                        20))),context: context, builder: (context){
+                      return ModalTutupPenawaran();
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      alignment: Alignment.center,
+                      fixedSize: Size(350, 50),
+                      backgroundColor: (HexColor('#EA5A5A'))),
+                  child: const Text(
+                    "Tutup Penawaran",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                  )),
+            ),
+          )
         ],
       ),
     );

@@ -1,3 +1,5 @@
+import 'package:auction_ujikom/component/petugas/petugasnavbar/petugasnavbar.dart';
+import 'package:auction_ujikom/view/adminview/adminnewitem/additempage.dart';
 import 'package:auction_ujikom/view/authentication/auth.dart';
 import 'package:auction_ujikom/view/authentication/login.dart';
 import 'package:auction_ujikom/view/authentication/register.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'component/admin/adminnavbar/navbar.dart';
+import 'component/admin/adminnavbar/adminnavbar.dart';
 import 'component/navbar/navbar.dart';
 
 
@@ -44,12 +46,18 @@ class MyApp extends StatelessWidget {
               '/adminhome': (context) => const AdminNavBar(),
 
 
+              // Navigating to admin home if home logged in
+              '/petugashome': (context) => const PetugasNavBar(),
+
+
               '/auth':(context) => const AuthViews(),
 
               //Navigating to Login Page
               '/login': (context) => const LoginView(),
               //Navigating to Register Page
               '/register':(context) => const RegisterView(),
+
+              '/additem':(context) => const AddItemPageView()
 
               // Navigating to auth if user not logged in
               // '/auth': (context) => const AuthView()

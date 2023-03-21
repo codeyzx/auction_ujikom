@@ -27,10 +27,12 @@ class _SplashState extends ConsumerState<Splash> {
       });
 
       if (users != null) {
-        if (users?.role == 'user'){
+        if (users.role == 'user'){
           Navigator.pushReplacementNamed(context, '/userhome');
-        } else if (users?.role == 'admin'){
+        } else if (users.role == 'admin'){
           Navigator.pushReplacementNamed(context, '/adminhome');
+        } else if(users.role == 'petugas'){
+          Navigator.pushReplacementNamed(context, '/petugashome');
         }
       } else {
         Navigator.pushReplacementNamed(context, '/auth');

@@ -4,21 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../controller/authController.dart';
-import '../../authentication/auth.dart';
+import '../../controller/authController.dart';
+import '../authentication/auth.dart';
 
 
-class AdminProfileView extends ConsumerStatefulWidget {
-  const AdminProfileView({Key? key}) : super(key: key);
+class PetugasProfileView extends ConsumerStatefulWidget {
+  const PetugasProfileView({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<AdminProfileView> createState() => _AdminProfileStateView();
+  ConsumerState<PetugasProfileView> createState() => _PetugasProfileStateView();
 }
 
-class _AdminProfileStateView extends ConsumerState<AdminProfileView> {
+class _PetugasProfileStateView extends ConsumerState<PetugasProfileView> {
 
   @override
   Widget build(BuildContext context) {
+
     final users = ref.watch(authControllerProvider);
     return Scaffold(
       appBar: AppBar(
@@ -54,9 +55,9 @@ class _AdminProfileStateView extends ConsumerState<AdminProfileView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text((users.name).toString()),
-                    Text((users.email).toString()),
-                    Text((users.role).toString())
+                    Text((users.name).toString() ),
+                    Text((users.email).toString() ),
+                    Text((users.role).toString() )
 
 
                   ],
@@ -142,5 +143,4 @@ class _AdminProfileStateView extends ConsumerState<AdminProfileView> {
 
       //Center(child: Text('Ini Profile')),
     );
-  }
-}
+}}

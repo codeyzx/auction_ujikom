@@ -74,7 +74,8 @@ class AuthController extends StateNotifier<Users> {
           Navigator.pushReplacementNamed(context, '/userhome');
         }else if (users.role == 'admin'){
           Navigator.pushReplacementNamed(context, '/adminhome');
-        }
+        }else if (users.role == 'petugas'){
+          Navigator.pushReplacementNamed(context, '/petugashome');}
         ;
 
 

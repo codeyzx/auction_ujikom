@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'adminpost/adminpostcard.dart';
+
 class AdminHomeView extends StatefulWidget {
   const AdminHomeView({Key? key}) : super(key: key);
 
@@ -11,7 +13,11 @@ class _AdminHomeViewState extends State<AdminHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Ini Admin Home")),
+      body: ListView(
+        children: [
+          AdminPostCard()
+        ],
+      )
     );
   }
 }
