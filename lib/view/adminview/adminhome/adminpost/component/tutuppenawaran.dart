@@ -20,7 +20,7 @@ class _ModalTutupPenawaranState extends ConsumerState<ModalTutupPenawaran> {
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        height: 180.h,
+        height: 200.h,
         padding: EdgeInsets.all(30),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
@@ -48,7 +48,7 @@ class _ModalTutupPenawaranState extends ConsumerState<ModalTutupPenawaran> {
                   //Navigate pop
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(fixedSize: Size(160, 40)),
+                style: ElevatedButton.styleFrom(fixedSize: Size(150, 40)),
                 child: Text('Batal', style: TextStyle(color: Colors.black)),
               ),
 
@@ -60,7 +60,7 @@ class _ModalTutupPenawaranState extends ConsumerState<ModalTutupPenawaran> {
                   child: Text('Confirm', style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: (HexColor('#EA5A5A')),
-                      fixedSize: Size(160, 40)))
+                      fixedSize: Size(150, 40)))
             ],
           )
         ]),

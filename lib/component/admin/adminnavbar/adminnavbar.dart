@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -47,7 +48,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
                   gap: 6,
                   activeColor: Colors.black,
                   iconSize: 24,
-                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                  padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 12),
                   duration: Duration(milliseconds: 400),
                   tabBackgroundColor: Colors.grey[100]!,
                   color: Colors.black,

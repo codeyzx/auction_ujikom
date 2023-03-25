@@ -8,33 +8,34 @@ import '../model/users.dart';
 class AuthController extends StateNotifier<Users> {
   AuthController() : super(Users());
 
-  // Future<String> checkUsers() async {
-  //   final result = FirebaseAuth.instance.currentUser;
-  //   if (result != null) {
-  //     await getUsers(uid: result.uid);
-  //     return result.uid;
-  //   }
-  //   return '';
-  // }
-
   Future<Users?> checkUsers() async {
     final result = FirebaseAuth.instance.currentUser;
     if (result != null) {
-      var checkUsers =
-      await FirebaseFirestore.instance.collection('users').doc(result.uid).get();
-
-      final users = Users.fromJson(checkUsers.data()!);
-      return users;
+      final user=  await getUsers(uid: result.uid);
+      return user;
     }
     return null;
   }
 
-  Future<void> getUsers({required String uid}) async {
+  // Future<Users?> checkUsers() async {
+  //   final result = FirebaseAuth.instance.currentUser;
+  //   if (result != null) {
+  //     var checkUsers =
+  //     await FirebaseFirestore.instance.collection('users').doc(result.uid).get();
+  //
+  //     final users = Users.fromJson(checkUsers.data()!);
+  //     return users;
+  //   }
+  //   return null;
+  // }
+
+  Future<Users> getUsers({required String uid}) async {
     var checkUsers =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
     final users = Users.fromJson(checkUsers.data()!);
     state = users;
+    return users;
   }
 
   Future<void> googleSignOut() async {
