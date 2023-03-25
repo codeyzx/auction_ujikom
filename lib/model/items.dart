@@ -7,8 +7,8 @@ class Items {
   String? status;
   String? picture;
   dynamic createdAt;
-  double? harga_awal;
-  double? harga_akhir;
+  dynamic harga_awal;
+  dynamic harga_akhir;
 
   Items({
     this.itemid,
@@ -32,8 +32,8 @@ class Items {
     String? status,
     String? picture,
     dynamic createdAt,
-    double? harga_awal,
-    double? harga_akhir
+    dynamic harga_awal,
+    dynamic harga_akhir
   }) {
     return Items(
         itemid: itemid ?? this.itemid,

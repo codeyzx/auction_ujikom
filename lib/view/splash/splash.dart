@@ -21,10 +21,10 @@ class _SplashState extends ConsumerState<Splash> {
 
   Future<void> initData() async {
     final users = await ref.read(authControllerProvider.notifier).checkUsers();
-    Future.delayed(Duration(seconds: 4), () {
-      setState(() {
-        isSplash = true;
-      });
+    await Future.delayed(Duration(seconds: 4), () {
+      // setState(() {
+      //   isSplash = true;
+      // });
 
       if (users != null) {
         if (users.role == 'user'){

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:auction_ujikom/controller/authController.dart';
 
+import '../../../controller/itemController.dart';
+
 
 class AddItemPageView extends ConsumerStatefulWidget {
   const AddItemPageView({Key? key}) : super(key: key);
@@ -20,96 +23,36 @@ class AddItemPageView extends ConsumerStatefulWidget {
   ConsumerState<AddItemPageView> createState() => _AddItemPageViewState();
 }
 
+
 class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
   final _formKey = GlobalKey<FormState>();
 
-  File? pickedImage;
-  UploadTask? uploadTask;
-  String? photoUrl;
 
-  //
-  // Future _pickImage(ImageSource source, ) async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(
-  //         source: source, imageQuality: 85, maxWidth: 400, maxHeight: 400);
-  //     if (image == null) return;
-  //     File? img = File(image.path);
-  //     img = await _cropImage(image: img);
-  //
-  //     if (img != null) {
-  //       final path = 'fotobarang/${img.path.toString()}';
-  //       final finalImage = File(img.path);
-  //
-  //       Reference reff = FirebaseStorage.instance.ref().child(path);
-  //       final value = await reff.putFile(finalImage);
-  //
-  //       // final snapshot = await uploadTask!.whenComplete(() {});
-  //
-  //       final url = await value.ref.getDownloadURL();
-  //       await FirebaseFirestore.instance
-  //           .collection('items')
-  //           .doc()
-  //           .set({
-  //         'picture': url.toString(),
-  //       });
-  //
-  //       // await ref.read(authControllerProvider.notifier).getUsers(uid: docId.toString());
-  //
-  //       // Logger().i(url);
-  //       setState(() {
-  //         photoUrl = url;
-  //       });
-  //       // return photoUrl ;
-  //       // photoUrl = await uploadImage();
-  //       // setState(() {});
-  //     }
-  //     // setState(() {
-  //     //   pickedImage = img;
-  //     //   Navigator.of(context).pop();
-  //     // });
-  //     // if (await pickedImage!.exists()) {
-  //     //   photoUrl = await uploadImage();
-  //     //   setState(() {});
-  //     // }
-  //   } on PlatformException catch (e) {
-  //      Logger().e(e);
-  //   }
-  // }
-  //
-  // Future<File?> _cropImage({required File image}) async {
-  //   CroppedFile? croppedImage = await ImageCropper().cropImage(
-  //       sourcePath: image.path,
-  //       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-  //       maxWidth: 300,
-  //       maxHeight: 300);
-  //   if (croppedImage == null) return null;
-  //   return File(croppedImage.path);
-  // }
-  //
-  // Future<void> uploadImage() async {
-  //   final path = 'userprofilepicture/${pickedImage!.path}';
-  //   final finalImage = File(pickedImage!.path);
-  //
-  //   Reference reff = FirebaseStorage.instance.ref().child(path);
-  //   final value = await reff.putFile(finalImage);
-  //
-  //   // final snapshot = await uploadTask!.whenComplete(() {});
-  //
-  //   final photoUrl = await value.ref.getDownloadURL();
-  //
-  //   Logger().i(photoUrl);
-  //   // return photoUrl ;
-  // }
+  final TextEditingController titleItemController = TextEditingController();
+  final TextEditingController hargaAwalController = TextEditingController();
+  final TextEditingController aboutItemController = TextEditingController();
+  final TextEditingController aboutDetailItemController = TextEditingController();
+
+  String imageUrl = '';
+
+  @override
+  void dispose() {
+    titleItemController.dispose();
+    hargaAwalController.dispose();
+    aboutItemController.dispose();
+    aboutDetailItemController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final users = ref.watch(authControllerProvider);
 
-    // final users = ref.watch(authControllerProvider);
 
     return Scaffold(
         appBar: AppBar(
             actions: [],
-        title: Text('Tambah Barang Baru')
+            title: Text('Tambah Barang Baru')
         ),
         body: ListView(
           padding: EdgeInsets.only(left: 20, right: 20),
@@ -126,7 +69,10 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
                       //Field Upload Foto
                       InkWell(
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           child: Column(
                             children: [
                               SizedBox(height: 20,),
@@ -138,17 +84,66 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
                           ),
                         ),
                         onTap: () async {
-                          // await _pickImage(ImageSource.gallery);
+                          //1. Pick and Crop the image
+                          //2. Upload the image to Firebase storage
+                          //3. Get the URL of the uploaded image
+                          //4. Store image URL in items collection
 
+                          // 1. Pick Image s
 
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                              source: ImageSource.gallery, imageQuality: 70);
+                          print('${file?.path}');
+
+                          String uniqueImageFileName = DateTime
+                              .now()
+                              .millisecondsSinceEpoch
+                              .toString();
+
+                          // 2. Upload to Firebase
+
+                          //Get the reference of storage root
+                          Reference referenceRoot = FirebaseStorage.instance
+                              .ref();
+                          Reference referenceDirImages = referenceRoot.child(
+                              'item_images');
+
+                          //Create a reference for the image to be stored
+                          Reference referenceImageToUpload = referenceDirImages
+                              .child(uniqueImageFileName);
+
+                          referenceImageToUpload.putFile(File(file!.path));
+
+                          try {
+                            await referenceImageToUpload.putFile(File(file!
+                                .path));
+                            imageUrl =
+                            await referenceImageToUpload.getDownloadURL();
+                          } catch (error) {
+
+                          }
                         },
                       ),
 
                       Text('Judul Barang'),
                       TextFormField(
+                        controller: titleItemController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Judul harus diisi';
+                          }
+                          else if (value.length < 10) {
+                            return 'Judul minimal 10 huruf';
+                          }
+                          else if (value.length > 24) {
+                            return 'Judul maksimal 24 huruf';
+                          }
+                        },
                         decoration: InputDecoration(
-                          labelText: 'Judul',
-                          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(100))),
                           contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 5),
                         ),
                       ),
@@ -157,9 +152,25 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
 
                       Text('Masukkan Harga Awal'),
                       TextFormField(
+                        controller: hargaAwalController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Isi harga dengan benar';
+                          }
+                          final n = int.tryParse(value);
+                          if (n == null) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+
+                        },
+
+                        keyboardType: TextInputType.number,
+
                         decoration: InputDecoration(
-                          labelText: 'Rp-',
-                          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(100))),
                           contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 5),
                         ),
                       ),
@@ -169,9 +180,18 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
                       Text('Deskripsi Barang'),
 
                       TextFormField(
+                        controller: aboutItemController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Isi deskripsi barang dengan benar';
+                          }
+                        },
+                        maxLength: 64,
+
                         decoration: InputDecoration(
-                          labelText: 'Deskripsi Singkat Barang',
-                          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(100))),
                           contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 5),
                         ),
                       ),
@@ -182,6 +202,7 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
                       Text('Detail Deskripsi Barang'),
 
                       TextFormField(
+                        controller: aboutDetailItemController,
 
                         minLines: 10,
                         // any number you need (It works as the rows for the textarea)
@@ -189,11 +210,10 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
                         maxLines: null,
                         maxLength: 840,
                         decoration: InputDecoration(
-                          labelText: 'Deskripsi Detail Barang',
 
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)),
-                          contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+                          contentPadding: EdgeInsets.fromLTRB(20, 25, 0, 5),
                           hintText: 'Write your post messege here...',
 
                         ),
@@ -201,9 +221,47 @@ class _AddItemPageViewState extends ConsumerState<AddItemPageView> {
 
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState?.save();
+                              try {
+                                await ref.read(itemControllerProvider.notifier)
+                                    .addItem(uid: users.uid.toString(),
+                                    title: titleItemController.text.trim(),
+                                    about: aboutItemController.text.trim(),
+                                    about_detail: aboutDetailItemController.text.trim(),
+                                    picture: imageUrl.toString(),
+                                    harga_awal: double.tryParse(hargaAwalController.text));
+
+                                print(titleItemController.text);
+
+                                Navigator.pushReplacementNamed(context, '/adminhome');
+
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Item Created'),
+                                        content: Text(
+                                            'Success! Your item has been successfully created and is now live for bidding. Good luck!'),
+                                        actions: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('Close'))
+                                        ],
+                                      );
+                                    });
+
+                              }
+                              catch (error) {
+                                print(error);
+                              }
+                            }
                           },
-                          child: Text('Submit', style: TextStyle(color: Colors.black)),
+                          child: Text(
+                              'Submit', style: TextStyle(color: Colors.black)),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: (HexColor('#B1B2FF')),
                               fixedSize: Size(160, 40)),

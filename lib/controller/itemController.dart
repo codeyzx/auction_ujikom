@@ -14,17 +14,17 @@ class ItemController extends StateNotifier<List<Items>> {
   final db = FirebaseFirestore.instance.collection('items');
   final doc = FirebaseFirestore.instance.collection('items').doc();
 
-  Future<void> addItem({required String uid, required String title}) async {
+  Future<void> addItem({required String uid, required String title, required String about, required String about_detail, required String picture, required dynamic harga_awal}) async {
     await doc.set({
       'itemid': doc.id,
       'uid': uid,
-      'title': '',
-      'about': '',
-      'about_detail': '',
-      'picture': '',
+      'title': title,
+      'about': about,
+      'about_detail': about_detail,
+      'picture': picture,
       'createdAt':DateTime.now().toString(),
-      'harga_awal': 0,
-      'harga_akhir' : 0,
+      'harga_awal': harga_awal,
+      'harga_akhir' : harga_awal,
       // 'createdAt': Timestamp.fromDate(DateTime.now()),
     });
     await getItem();

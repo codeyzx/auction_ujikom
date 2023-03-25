@@ -82,6 +82,11 @@ class _AdminProfileStateView extends ConsumerState<AdminProfileView> {
               leading: Icon(LineIcons.user, color: Colors.black,),
             ),
 
+            ListTile(
+              title: Text('Ini Profile Admin'),
+              leading: Icon(LineIcons.user, color: Colors.black,),
+            ),
+
             Spacer(),
 
             ElevatedButton(

@@ -21,6 +21,8 @@ class _PetugasProfileStateView extends ConsumerState<PetugasProfileView> {
   Widget build(BuildContext context) {
 
     final users = ref.watch(authControllerProvider);
+
+    print(users);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -82,6 +84,12 @@ class _PetugasProfileStateView extends ConsumerState<PetugasProfileView> {
               title: Text('Edit Profile'),
               leading: Icon(LineIcons.user, color: Colors.black,),
             ),
+
+            ListTile(
+              title: Text('Ini akun Petugas'),
+              leading: Icon(LineIcons.user, color: Colors.black,),
+            ),
+
 
             Spacer(),
 

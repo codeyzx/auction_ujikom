@@ -8,6 +8,15 @@ import '../model/users.dart';
 class AuthController extends StateNotifier<Users> {
   AuthController() : super(Users());
 
+  // Future<String> checkUsers() async {
+  //   final result = FirebaseAuth.instance.currentUser;
+  //   if (result != null) {
+  //     await getUsers(uid: result.uid);
+  //     return result.uid;
+  //   }
+  //   return '';
+  // }
+
   Future<Users?> checkUsers() async {
     final result = FirebaseAuth.instance.currentUser;
     if (result != null) {
