@@ -1,35 +1,38 @@
+import 'package:auction_ujikom/model/items.dart';
 import 'package:auction_ujikom/view/home/post/component/tawar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:like_button/like_button.dart';
 
 import 'component/tutuppenawaran.dart';
 
 class AdminPostExpandView extends ConsumerStatefulWidget {
-  const AdminPostExpandView({Key? key}) : super(key: key);
+
+  final Items item;
+  const AdminPostExpandView({Key? key, required this.item}) : super(key: key);
 
   @override
   ConsumerState<AdminPostExpandView> createState() => _AdminPostExpandViewState();
 }
 
 class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
-  List<String> imagepost = [
-    //ambil dari firebase
-    'https://www.macworld.com/wp-content/uploads/2023/01/macbook-air-m1-hero01-100866889-orig.jpg?quality=50&strip=all&w=1024',
-    'https://id.pinterest.com/pin/561331541068354390/'
-  ];
+
 
   @override
 
 
   Widget build(BuildContext context) {
-    var hargaAwal = 15000000;
-    var hargaTerakhir = 20000000;
+    var hargaAwal = widget.item.harga_awal;
+    var hargaTerakhir = widget.item.harga_akhir;
+    List<String> imagepost = [
+      widget.item.picture.toString()
+    ];
 
     return Scaffold(
-      appBar: AppBar(title: Text('Ambil dari Judul document firebase')),
+      appBar: AppBar(title: Text(widget.item.title.toString())),
       body: Stack(
         children: [
           ListView(
@@ -67,11 +70,12 @@ class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
                           height: 60,
                           child: Center(
                               child: Text(
+                              hargaAwal.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
-                                  hargaAwal.toString())),
+                                  )),
                         ),
                         Container(
                             color: Colors.yellow.withOpacity(0.75),
@@ -79,9 +83,10 @@ class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
                             height: 60,
                             child: Center(
                                 child: Text(
+                                  hargaTerakhir.toString(),
                                   style: TextStyle(
                                       fontSize: 20, fontWeight: FontWeight.w600),
-                                  hargaTerakhir.toString(),
+
                                   softWrap: true,
                                 )))
                       ],
@@ -105,14 +110,16 @@ class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Kucing Kampung Nakal",
+
+                                widget.item.title.toString(),
                                 style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.w600),
+
+                                    fontSize: 22, fontWeight: FontWeight.w600),
                               ),
                               SizedBox(
                                 height: 5,
                               ),
-                              Text("Dilelang butuh Uang",
+                              Text(widget.item.about.toString(),
                                   style: TextStyle(color: Colors.black54)),
                             ],
                           ),
@@ -127,7 +134,7 @@ class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Deskripsi detail barang'),
-                          Text('Deskripsi', style: TextStyle(color: Colors.black54))
+                          Text(widget.item.about_detail.toString(), style: TextStyle(color: Colors.black54))
                         ],
                       )
                     ]),
@@ -151,7 +158,8 @@ class _AdminPostExpandViewState extends ConsumerState<AdminPostExpandView> {
                   },
                   style: ElevatedButton.styleFrom(
                       alignment: Alignment.center,
-                      fixedSize: Size(350, 50),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      fixedSize: Size((MediaQuery.of(context).size.width), 50),
                       backgroundColor: (HexColor('#EA5A5A'))),
                   child: const Text(
                     "Tutup Penawaran",

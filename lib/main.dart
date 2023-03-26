@@ -1,5 +1,5 @@
 import 'package:auction_ujikom/component/petugas/petugasnavbar/petugasnavbar.dart';
-import 'package:auction_ujikom/view/adminview/adminnewitem/additempage.dart';
+import 'package:auction_ujikom/view/adminview/adminnewitem/add_item_page.dart';
 import 'package:auction_ujikom/view/authentication/auth.dart';
 import 'package:auction_ujikom/view/authentication/login.dart';
 import 'package:auction_ujikom/view/authentication/register.dart';

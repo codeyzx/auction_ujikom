@@ -1,4 +1,4 @@
-import 'package:auction_ujikom/view/adminview/adminnewitem/additempage.dart';
+import 'package:auction_ujikom/view/adminview/adminnewitem/add_item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 

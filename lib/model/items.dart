@@ -10,6 +10,7 @@ class Items {
   dynamic harga_awal;
   dynamic harga_akhir;
 
+
   Items({
     this.itemid,
     this.uid,

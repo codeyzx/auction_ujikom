@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:auction_ujikom/view/adminview/adminnewitem/adminnewitem.dart';
+import 'package:auction_ujikom/view/adminview/adminnewitem/admin_new_item.dart';
 import 'package:auction_ujikom/view/adminview/adminprofile/adminprofile.dart';
 
 import '../../../view/adminview/adminhome/adminhome.dart';
